@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إلى أميرتي والروح ❤️</title>
+    <style>
+        /* إعادة ضبط الأساسيات */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #2b0008 0%, #4a000e 50%, #1a0005 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* خلفية القلوب المتحركة الخفيفة */
+        .bg-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .bg-hearts span {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 77, 109, 0.2);
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 50% 75%, 18% 100%, 0% 38%);
+            animation: moveHeart 10s linear infinite;
+            bottom: -50px;
+        }
+
+        @keyframes moveHeart {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* الحاوية الرئيسية */
+        .card-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 77, 109, 0.3);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 15px rgba(230, 57, 70, 0.3);
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+
+        /* الإطار وتأثير الصورة */
+        .profile-frame {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 25px auto;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(45deg, #ff4d6d, #ff758f, #c9184a);
+            box-shadow: 0 0 25px rgba(255, 77, 109, 0.6);
+            animation: pulseGlow 3s infinite alternate;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #1a0005;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 15px rgba(255, 77, 109, 0.5); }
+            100% { box-shadow: 0 0 35px rgba(255, 77, 109, 0.9); }
+        }
+
+        /* العناوين والقصائد */
+        h1 {
+            color: #ff758f;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 117, 143, 0.5);
+        }
+
+        .poem-box {
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            padding: 15px;
+            border-right: 3px solid #ff4d6d;
+            border-left: 3px solid #ff4d6d;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .poem-text {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: #fff0f5;
+            white-space: pre-line;
+            transition: opacity 1s ease-in-out;
+            opacity: 1;
+        }
+
+        .fade-out {
+            opacity: 0;
+        }
+
+        .heart-icon {
+            color: #ff4d6d;
+            font-size: 1.5rem;
+            animation: beat 1s infinite alternate;
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        @keyframes beat {
+            to { transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- القلوب الخلفية المتحركة -->
+    <div class="bg-hearts" id="heartsContainer"></div>
+
+    <!-- البطاقة الرئيسية -->
+    <div class="card-container">
+        <!-- الصورة (استبدل photo.jpg برابط أو مسار صورة حبيبتك) -->
+        <div class="profile-frame">
+            <img src="C:\Users\Abdurrhman\Pictures\Saved Pictures" alt="أميرتي" class="profile-img">
+        </div>
+
+        <h1>إلى أنتِ.. يا كلّ عمري  ❤️</h1>
+
+        <!-- صندوق الشعر المتغير -->
+        <div class="poem-box">
+            <p class="poem-text" id="poemDisplay">جاري تحميل أبيات الحب...</p>
+        </div>
+
+        <div class="heart-icon">❤️</div>
+    </div>
+
+    <script>
+        // قائمة الأبيات والقصائد التي ستتغير كل 5 دقائق
+        const poems = [
+            "أنتِ النّعيمُ لِقَلبي والـعَذابُ لَهُ\nفَمَا أَمَرَّكِ فِي قَلْبِي وَأَحْلاَكِ",
+            "وَإِنِّي لأَهْوَى النَّوْمَ فِي غَيْرِ حِينِهِ\nلَعَلَّ لِقَاءً فِي المَنَامِ يَكُونُ",
+            "أُحِبُّكِ حُبَّيْنِ حُبَّ الهَوَى\nوَحُبّاً لأَنَّكِ أَهْلٌ لِذَاكَا",
+            "وما كُنْتُ مِمَّنْ يَدْخُلُ العِشْقُ قَلْبَهُ\nوَلَكِنَّ مَنْ يُبْصِرْ جُفُونَكِ يَعْشَقِ",
+            "سَكَنْتِ قَلْبِي وَمَا فِي الكَوْنِ يُشْبِهُكِ\nيَا أَجْمَلَ النَّاسِ فِي عَيْنِي وَأَغْلاَهُمْ"
+        ];
+
+        let currentIndex = 0;
+        const poemElement = document.getElementById('poemDisplay');
+
+        function updatePoem() {
+            // تأثير الاختفاء التدريجي
+            poemElement.classList.add('fade-out');
+
+            setTimeout(() => {
+                // تغيير النص
+                poemElement.textContent = poems[currentIndex];
+                // إعادة الإظهار التدريجي
+                poemElement.classList.remove('fade-out');
+                
+                // الانتقال للبيت التالي
+                currentIndex = (currentIndex + 1) % poems.length;
+            }, 1000); // ينتظر ثانية واحدة لإتمام التلاشي
+        }
+
+        // تشغيل أول بيت فوراً
+        updatePoem();
+
+        // ضبط التغيير كل 1 دقائق (30,000 مللي ثانية)
+        setInterval(updatePoem, 30000);
+
+        // إنشاء القلوب المتحركة في الخلفية
+        const heartsContainer = document.getElementById('heartsContainer');
+        for (let i = 0; i < 15; i++) {
+            const heart = document.createElement('span');
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 8 + 's';
+            heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            heartsContainer.appendChild(heart);
+        }
+    </script>
+</body>
+</html>
